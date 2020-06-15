@@ -7,7 +7,10 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        try (FileOutputStream outputStream = new FileOutputStream("data/out.txt")) {
+        try (FileOutputStream outputStream = new FileOutputStream("data/out.txt", true)) {
+            outputStream.write(48);
+            byte[] value = {65, 67, 100};
+            outputStream.write(value);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
