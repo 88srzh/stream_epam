@@ -1,21 +1,22 @@
 package edu.inst;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 
 public class InputMain {
     public static void main(String[] args) {
 
-        try {FileReader reader = new FileReader("data/info.txt");
+        try (FileReader reader = new FileReader("data/info.txt");
+            FileWriter writer = new FileWriter("data/out2.txt")) {
             int symbol = reader.read();
             System.out.println(symbol);
+            writer.write(symbol);
             char[] buffer = new char[8];
-            reader.skip(2);
-            reader.read(buffer);
-            System.out.println(Arrays.toString(buffer));
+            int charNum = reader.read(buffer);
+            while (charNum != -1) {
+                writer.write(buffer, 0, charNum);
+                charNum = reader.read(buffer);
+            }
         } catch (FileNotFoundException e) {
                 e.printStackTrace();
         } catch (IOException e) {
